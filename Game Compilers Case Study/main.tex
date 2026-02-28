@@ -1,0 +1,237 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[a4paper,margin=1in,headheight=40pt,headsep=25pt]{geometry}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[C]{%
+  \includegraphics[width=\textwidth]{header.png}
+}
+
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{\thepage}
+
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyhead[C]{%
+    \includegraphics[width=\textwidth]{header.png}
+  }
+  \renewcommand{\headrulewidth}{0pt}
+  \cfoot{\thepage}
+}
+
+
+% Code listing style for compiler pseudocode
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green},
+  stringstyle=\color{red},
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  frame=single
+}
+
+
+
+
+\title{\textbf{Case Study: Evolution of Compilers in Game Development} \\ 
+       System Programming and Compiler Design}
+\author{
+Unnat Malik -- 43 \\
+Aryan Yadav -- 54 \\
+Chinmay Sawant -- 66
+}
+
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Abstract}
+This case study traces compiler evolution from Grace Hopper's 1952 A-0 system to modern game engines like Unity Burst and Unreal Nanite. It examines lexical analysis, optimization passes, and code generation tailored for real-time graphics and physics simulation. Key focus is on Low Level Virtual Machine (LLVM)-based backends enabling cross-platform performance in titles like \textit{Genshin Impact} and \textit{Fortnite}.
+
+\section{Introduction}
+Compilers bridge high-level languages to machine code, which is critical for games demanding 60+ Frames Per Second (FPS) on diverse hardware. Early compilers prioritized diagnostics over optimization due to 4K memory limits. Today’s Just-In-Time (JIT) and Ahead-Of-Time (AOT) compilation hybrids optimize Single Instruction Multiple Data (SIMD) vectorization for Graphics Processing Unit (GPU) shaders. This study analyzes one milestone (for example, Unity Burst) against historical context.
+
+\section{Historical Evolution of Compilers}
+
+The development of compilers happened gradually as computers themselves became more advanced. In the early days of computing, programmers had to write programs directly in machine language or assembly language. This was extremely difficult, time-consuming, and prone to human error. Compilers were introduced to solve this problem by automatically converting human-readable programming languages into machine instructions. Over time, compilers evolved from simple translators into advanced optimization systems that are now essential for performance-heavy applications such as modern game engines.
+
+\subsection{1950s: Foundations}
+
+One of the earliest breakthroughs in compiler development came from the work of \textbf{Grace Murray Hopper}. In 1952, she developed the A-0 system. The A-0 system is widely regarded as one of the first compiler-like systems. It translated mathematical code into machine language by linking pre-written subroutines.
+
+Although it was not a full compiler in the modern sense, it introduced the revolutionary idea that programs could be automatically translated instead of written directly in machine code. This concept laid the foundation for future high-level programming languages and compiler design. Instead, it translated mathematical instructions into assembly code by linking stored subroutines. Even though it was simple, it introduced the revolutionary idea that programs could be translated automatically instead of being written directly in machine code.
+
+Later in the 1950s, FORTRAN I (Formula Translation System) became one of the first real compilers that could perform optimization. It introduced important compiler stages such as:
+
+\begin{itemize}
+\item \textbf{Lexical Analysis} – Breaking program code into smaller units called tokens. Tokens include keywords, numbers, operators, and variable names.
+\item \textbf{Optimization} – Automatically improving program performance during compilation.
+\end{itemize}
+
+For example, mathematical expressions such as:
+\[
+x^2 + y^3
+\]
+could be converted into efficient machine instructions. This was very important because computers at that time used vacuum tubes and had very small memory and slow processing speeds.
+
+\subsection{1960s: Metacompilers}
+
+In the 1960s, research shifted toward making compilers easier to build. This led to the development of metacompilers. A metacompiler is a program that helps create other compilers automatically.
+
+Tools such as TMG (TransMoGrifier) and META II allowed programmers to describe programming language rules using grammar definitions. The metacompiler could then generate a working compiler based on those rules. This helped new programming languages develop faster.
+
+Another important development was peephole optimization. Peephole optimization works by examining small groups of machine instructions and replacing them with faster or shorter instruction sequences. This idea later evolved into modern optimization techniques such as register allocation, where compilers try to keep frequently used values inside CPU registers instead of slower memory.
+
+\subsection{1970s--1990s: C Language and Portability Era}
+
+During this period, software developers wanted programs that could run on different hardware platforms without rewriting large amounts of code. This is known as portability.
+
+The C programming language became very popular because it allowed low-level hardware control while still being portable across systems. Early C compilers were designed for machines such as PDP-11 computers and required careful design to support multiple hardware architectures.
+The GNU Compiler Collection, commonly called GCC, supported multiple programming languages and hardware platforms.
+
+It also popularized the use of \textbf{Intermediate Representation (IR)}. Intermediate Representation is an internal format used inside compilers. Instead of directly converting source code into machine code, the compiler first converts it into IR. Then optimization is applied, and finally machine code is generated. This made compilers more flexible and easier to improve.
+
+\section{Case Study: Unity Burst Compiler}
+
+Modern video games require extremely high performance to maintain smooth gameplay. One major example of modern compiler usage in gaming is the Burst compiler used in the Unity game engine.
+
+The Burst compiler is built using the infrastructure of \textit{LLVM}, which stands for Low Level Virtual Machine. LLVM is not just a compiler but a complete compiler framework that allows developers to build compilers for multiple programming languages and hardware platforms using shared optimization logic.
+
+\subsection{Game Engine Compilation Architecture Diagram}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{LLVMCompiler1_fixed.png}
+\caption{Modern Game Engine Compilation Pipeline}
+\end{figure}
+
+Burst compiles C\# job-based code into highly optimized native machine instructions for processors such as x86 and ARM architectures. It is mainly used with the Entity Component System (ECS). ECS stands for Entity Component System, which is a game programming architecture where game objects are broken into smaller components such as position, speed, or health. This improves performance and allows better parallel processing.
+
+Burst is used in large modern games such as \textit{Unreal Engine and Unity}, where large numbers of physics calculations and animation systems must run smoothly in real time.
+
+\subsection{Game Engine Compilation Pipeline}
+
+To understand how modern compilers work in game engines, it is important to understand the full pipeline from game developer code to final machine execution. Modern game engines use multiple compilers working together to convert gameplay logic and graphics instructions into optimized hardware instructions.
+
+Game developers usually write gameplay logic using high-level programming languages such as C++ or C\#. C++ is commonly used in performance-critical engines, while C\# is used in managed environments where productivity is important. This code includes gameplay mechanics, physics simulation, artificial intelligence, and player interaction systems.
+
+Once written, this code is sent to a compiler. The compiler converts high-level code into an Intermediate Representation (IR). IR is a simplified internal format that allows the compiler to apply optimization techniques before generating final machine code. The final machine code is generated based on the target processor architecture such as x86 for desktop computers or ARM for mobile devices and consoles.
+
+In addition to gameplay code, modern games also require graphics programming using shaders. Shaders are small programs that run directly on the Graphics Processing Unit (GPU). Developers write shaders using languages such as High Level Shading Language (HLSL) or OpenGL Shading Language (GLSL). These shader programs control lighting, shadows, reflections, textures, and visual effects.
+
+Shader compilers convert shader source code into GPU-specific instruction formats such as SPIR-V or DirectX Intermediate Language (DXIL). These instructions are then executed directly by the GPU during rendering.
+
+Modern engines also include advanced rendering technologies. For example, virtualized geometry systems convert extremely detailed 3D models into GPU-friendly streaming data. This allows real-time rendering of highly detailed environments without excessive memory usage.
+
+\subsection{JIT vs AOT Compilation in Game Development}
+
+Modern game engines use both Just-In-Time (JIT) and Ahead-Of-Time (AOT) compilation strategies.
+
+JIT compilation converts code into machine instructions during runtime. It allows runtime optimization based on actual execution behavior. However, it introduces startup delay.
+
+AOT compilation converts code into native machine instructions before execution. This improves startup speed and is preferred for console and mobile games where runtime compilation is restricted.
+
+Unity Burst primarily uses AOT compilation for performance-critical systems, while managed C\# environments may use JIT for flexibility.
+
+\subsection{WebAssembly and Cross-Platform Gaming}
+
+WebAssembly (WASM) allows C++ game code to run inside web browsers at near-native speed. Compilers translate high-level languages into WASM bytecode, which is executed by browser engines.
+
+This enables high-performance browser games without plugins and demonstrates how modern compiler design supports platform independence.
+
+\subsection{Semantic Analysis and Intermediate Representation}
+
+During semantic analysis, the compiler checks whether data types and program logic are correct. For example, vector data types must be validated before mathematical operations are performed. The compiler then generates Intermediate Representation code.
+
+Example IR code:
+
+\begin{verbatim}
+define void @Execute(i32 %index, <3 x float>* %positions) {
+  %vec = load <3 x float>, <3 x float>* %ptr
+  %norm = call <3 x float> @normalize(<3 x float> %vec)
+  store <3 x float> %norm, <3 x float>* %ptr
+}
+\end{verbatim}
+
+Intermediate Representation makes it easier to apply optimizations across different hardware platforms.
+
+\subsection{Optimization Passes}
+
+Compilers apply multiple optimization techniques:
+
+\textbf{Vectorization} converts scalar operations into vector operations so multiple data values can be processed simultaneously.
+
+\textbf{Dead Code Elimination} removes unused code segments to reduce execution time.
+
+\textbf{Loop Unrolling} expands loops to reduce branching overhead and improve cache performance.
+
+\subsection{Code Generation}
+
+After optimization, final machine code is generated. The backend compiler generates processor-specific instructions such as ARM NEON instructions for mobile processors or advanced vector instructions for desktop CPUs. Shader compilers generate GPU instructions used during rendering.
+
+This entire compilation pipeline ensures that modern games can run complex simulations and render detailed graphics while maintaining smooth real-time performance.
+
+\section{Challenges and Future Work}
+
+Modern game engines face multiple challenges. Mobile devices require highly optimized graphics instruction formats. Web-based gaming requires WebAssembly-based compilation. Future compilers are expected to use machine learning techniques to automatically select optimal optimization strategies based on runtime conditions.
+
+\section{Conclusion}
+
+Compilers have evolved from simple translation tools into advanced optimization systems that are essential for modern game engines. From gameplay code to shader execution, compilers ensure that games achieve high performance, efficient hardware usage, and smooth real-time interaction. As game complexity continues to increase, compiler technology will remain a critical part of game engine development.
+
+\section{Learning Outcomes}
+
+\subsection*{Stage 1: Foundational Understanding}
+\begin{itemize}
+\item Understand the basic structure and working of compilers.
+\item Explain lexical analysis, syntax analysis, and semantic analysis.
+\item Describe historical milestones in compiler evolution.
+\end{itemize}
+
+\subsection*{Stage 2: Applied Understanding}
+\begin{itemize}
+\item Analyze how Intermediate Representation improves portability.
+\item Compare JIT and AOT compilation strategies.
+\item Explain optimization techniques such as loop unrolling and vectorization.
+\end{itemize}
+
+
+\section*{Course Outcome}
+
+CO1: Analyze the design and implementation of modern compilers and evaluate their role in high-performance applications such as real-time game engines.
+
+\section*{For Faculty Use}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.8}
+
+\begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{4cm}|}
+\hline
+\textbf{Correction Parameters} & 
+\textbf{Formative Assessment [40\%]} & 
+\textbf{Timely Completion of Practical [40\%]} & 
+\textbf{Attendance / Learning Attitude [20\%]} &
+\textbf{} \\
+\hline
+\textbf{Marks Obtained} \rule{0pt}{12ex} & & & & \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{document}
